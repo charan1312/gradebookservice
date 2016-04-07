@@ -1,37 +1,26 @@
 package com.asu.edu.cse564.model;
 
-//import javax.xml.bind.annotation.XmlElement;
-//import javax.xml.bind.annotation.XmlRootElement;
-//import javax.xml.bind.annotation.XmlType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-//@XmlRootElement(name = "assignment")
-//@XmlType(propOrder={
-//    "id",
-//    "sid",
-//    "name",
-//    "grade"})
-public class Assignment {
+public class Lab {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Assignment.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Lab.class);
 
     private int id;
     private String name;
     private String grade;
     
-    public Assignment() {
+    public Lab() {
         // TODO Auto-generated constructor stub
-        LOG.info("Creating the Assignment class");
+        LOG.info("Creating the Lab class");
     }
     
     public int getId() {
         return id;
     }
     
-//    @XmlElement
     public void setId(int id) {
         this.id = id;
     }
@@ -40,7 +29,6 @@ public class Assignment {
         return name;
     }
     
-//    @XmlElement
     public void setName(String name) {
         this.name = name;
     }
@@ -48,7 +36,6 @@ public class Assignment {
         return grade;
     }
     
-//    @XmlElement
     public void setGrade(String grade) {
         this.grade = grade;
     }
