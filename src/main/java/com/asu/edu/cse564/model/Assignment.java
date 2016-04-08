@@ -19,14 +19,25 @@ public class Assignment {
     private static final Logger LOG = LoggerFactory.getLogger(Assignment.class);
 
     private int id;
-    private String name;
-    private String grade;
+    private String title;
+    private int grade;
     
     public Assignment() {
         // TODO Auto-generated constructor stub
         LOG.info("Creating the Assignment class");
     }
     
+    
+    public Assignment(int id, String title) {
+        super();
+        this.id = id;
+        this.title = title;
+        
+        //Default value of the grades when initially assigned
+        this.grade = -1;
+    }
+
+
     public int getId() {
         return id;
     }
@@ -37,19 +48,19 @@ public class Assignment {
     }
     
     public String getName() {
-        return name;
+        return title;
     }
     
 //    @XmlElement
     public void setName(String name) {
-        this.name = name;
+        this.title = name;
     }
-    public String getGrade() {
+    public int getGrade() {
         return grade;
     }
     
 //    @XmlElement
-    public void setGrade(String grade) {
+    public void setGrade(int grade) {
         this.grade = grade;
     }
 }

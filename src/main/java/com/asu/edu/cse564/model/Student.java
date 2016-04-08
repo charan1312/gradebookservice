@@ -1,5 +1,6 @@
 package com.asu.edu.cse564.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
@@ -10,6 +11,15 @@ public class Student {
     private List<Lab> labs;
     private MidTerm midTerm;
     
+    public Student(int sid, String sName) {
+        super();
+        this.sid = sid;
+        this.sName = sName;
+        this.assigments = new ArrayList<Assignment>();
+        this.quizs = new ArrayList<Quiz>();
+        this.labs = new ArrayList<Lab>();
+        this.midTerm = new MidTerm();
+    }
     public int getsId() {
         return sid;
     }

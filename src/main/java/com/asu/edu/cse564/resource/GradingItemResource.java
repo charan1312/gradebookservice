@@ -8,12 +8,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.asu.edu.cse564.service.GradingItemService;
+import com.asu.edu.cse564.service.AssignmentService;
 
 @Path("/gradeitem/{item}")
 public class GradingItemResource {
 
-    GradingItemService giService;
+    AssignmentService giService;
     
     @POST
     @Consumes(MediaType.APPLICATION_XML)
