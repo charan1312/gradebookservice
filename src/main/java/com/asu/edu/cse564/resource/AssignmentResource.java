@@ -26,11 +26,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@Path("/gradebooks/gradebook/{gid}/Student")
+@Path("/gradebooks/gradebook/{gid}/Student/{sid}/Assignment")
 @Singleton
-public class StudentResource {
+public class AssignmentResource {
 
-    StudentService studentService = new StudentService();
+    AssignmentService assignmentService = new AssignmentService();
     ObjectMapper mapper = new ObjectMapper();
     
     @Context
@@ -39,8 +39,7 @@ public class StudentResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    //@Path("/gradebooks/gradebook/{gid}/Student")
-    public Response createNewStudentForGradeBook(@PathParam("gid") int gid, GradeBooksUIInp gradeBooksUIInp) {
+    public Response createNewAssigmentForAllStudentForGradeBook(@PathParam("gid") int gid, GradeBooksUIInp gradeBooksUIInp) {
         System.out.println("Into the student resources--" + "---" + gid +"---"  + gradeBooksUIInp.getGradeBookId() + gradeBooksUIInp.getStudentId() + gradeBooksUIInp.getName() );
         Response response = null; 
         URI locationURI;

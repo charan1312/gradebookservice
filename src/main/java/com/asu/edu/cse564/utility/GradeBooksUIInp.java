@@ -1,4 +1,7 @@
-package com.asu.edu.cse564.model;
+package com.asu.edu.cse564.utility;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -71,5 +74,22 @@ public class GradeBooksUIInp {
         return "GradeBooks [comboText=" + comboText + ", gradeBookId="
                 + gradeBookId + ", gradeItemId=" + gradeItemId + ", studentId="
                 + studentId + ", name=" + name + ", grade=" + grade + "]";
+    }
+    
+    public static void main(String[] args) {
+        ObjectMapper mapper = new ObjectMapper();
+        GradeBooksUIInp inp = new GradeBooksUIInp();
+        inp.setName("CSE 564 GRADEBOOK");
+        
+        String a = "www.google.com/services/rest/get/88";
+       System.out.println(a.substring(0,a.lastIndexOf("/") ));
+        System.out.println(a.lastIndexOf("/"));
+        
+        try {
+            System.out.println(mapper.writeValueAsString(inp));
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

@@ -1,20 +1,20 @@
 package com.asu.edu.cse564.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 
 public class MidTerm {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MidTerm.class);
+    //private static final Logger LOG = LoggerFactory.getLogger(MidTerm.class);
 
 //    private int id;
 //    private String name;
-    private String grade;
+    private int grade = -100;
     
     public MidTerm() {
         // TODO Auto-generated constructor stub
-        LOG.info("Creating the MidTerm class");
+        //LOG.info("Creating the MidTerm class");
     }
     
 //    public int getId() {
@@ -33,11 +33,11 @@ public class MidTerm {
 //        this.name = name;
 //    }
     
-    public String getGrade() {
+    public int getGrade() {
         return grade;
     }
     
-    public void setGrade(String grade) {
+    public void setGrade(int grade) {
         this.grade = grade;
     }
 }

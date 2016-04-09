@@ -1,12 +1,12 @@
 package com.asu.edu.cse564.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 
 public class Quiz {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Quiz.class);
+    //private static final Logger LOG = LoggerFactory.getLogger(Quiz.class);
 
     private int id;
     private String name;
@@ -14,7 +14,7 @@ public class Quiz {
     
     public Quiz() {
         // TODO Auto-generated constructor stub
-        LOG.info("Creating the Quiz class");
+        //LOG.info("Creating the Quiz class");
     }
     
     public int getId() {

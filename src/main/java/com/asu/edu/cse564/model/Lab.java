@@ -1,12 +1,12 @@
 package com.asu.edu.cse564.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 
 public class Lab {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Lab.class);
+    //private static final Logger LOG = LoggerFactory.getLogger(Lab.class);
 
     private int id;
     private String name;
@@ -14,7 +14,7 @@ public class Lab {
     
     public Lab() {
         // TODO Auto-generated constructor stub
-        LOG.info("Creating the Lab class");
+        //LOG.info("Creating the Lab class");
     }
     
     public int getId() {

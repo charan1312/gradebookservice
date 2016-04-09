@@ -6,13 +6,13 @@ import java.util.Map;
 public class GradeBook {
 
     //public static List<Student> gradeBook;
-    public static HashMap<Integer, Student> gradeBook;
+    public HashMap<Integer, Student> studentsMap = new HashMap<Integer, Student>();
     private int id;
     private String name;
     
-    public GradeBook() {
-        gradeBook = new HashMap<Integer, Student>();
-    }
+    //public GradeBook() {
+        //studentsMap = new HashMap<Integer, Student>();
+    //}
 
     public GradeBook(int id,String gradeBookName) {
         this.id = id;

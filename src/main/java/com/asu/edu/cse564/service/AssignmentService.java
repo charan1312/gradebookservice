@@ -9,10 +9,13 @@ import com.asu.edu.cse564.model.AsgList;
 import com.asu.edu.cse564.model.Assignment;
 import com.asu.edu.cse564.model.GradeBook;
 import com.asu.edu.cse564.model.Student;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AssignmentService {
 
-    HashMap<Integer, Student> studentMap = GradeBook.gradeBook;
+    public ObjectMapper mapper = new ObjectMapper();
+    
+    //HashMap<Integer, Student> studentMap = GradeBook.studentsMap;
     private static int asgcount = 0;
     
     //public void addAssignmentForAllStudents(int aid,String aTitle) {
