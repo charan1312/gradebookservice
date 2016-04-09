@@ -17,11 +17,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import com.asu.edu.cse564.model.GradeBook;
-import com.asu.edu.cse564.model.GradeBooks;
+import com.asu.edu.cse564.model.Assignment;
 import com.asu.edu.cse564.model.GradeBooksUIInp;
-import com.asu.edu.cse564.model.Student;
-import com.asu.edu.cse564.service.StudentService;
+import com.asu.edu.cse564.service.AssignmentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,13 +28,181 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Singleton
 public class AssignmentResource {
 
+   
     AssignmentService assignmentService = new AssignmentService();
     ObjectMapper mapper = new ObjectMapper();
     
     @Context
     private UriInfo context;
-    
+
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{aid}")
+    public Response addAssignmentForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, @PathParam("aid") int aid,GradeBooksUIInp gradeBooksUIInp) {
+        Response response = null;
+        URI locationURI;
+        String jsonString = null;
+        //if(!(gradeBooksUIInp.getGrade()==null))
+        // We can check for presence of grade value as non-zero,but 0 can also be an update item so no check as of now
+        if(gid != 0 && sid != 0 || aid != 0) {
+            Assignment assignment = assignmentService.addAssignmentForStudentWithIdForGradeBook(gid, sid, aid, gradeBooksUIInp.getName() );
+            if(assignment != null ) {
+                try {
+                    jsonString = mapper.writeValueAsString(assignment);
+                } catch (JsonProcessingException e) {
+                // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } 
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                System.out.println(locationURI);
+                response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+            } else {
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();  //NO_CONTENT aa??
+            }
+        } else {
+            locationURI = URI.create(context.getAbsolutePath().toString());
+            response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();
+        }
+        return response;
+    }
+    
+    
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{aid}")
+    public Response deleteAssignmentForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, @PathParam("aid") int aid,GradeBooksUIInp gradeBooksUIInp) {
+        Response response = null;
+        URI locationURI;
+        if(gid != 0 && sid != 0 || aid != 0) {
+            int status = assignmentService.deleteAssignmentForStudentWithIdForGradeBook(gid, sid, aid);
+            if(status == 1) {
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                System.out.println(locationURI);
+                response = Response.status(Response.Status.OK).location(locationURI).build();
+            } else {
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+            }
+        }
+        else {
+            locationURI = URI.create(context.getAbsolutePath().toString());
+            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();            
+        }
+            
+        return response;
+    }    
+    
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{aid}")
+    public Response updateAssignmentForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, @PathParam("aid") int aid,GradeBooksUIInp gradeBooksUIInp) {
+        Response response = null;
+        URI locationURI;
+        String jsonString = null;
+        //if(!(gradeBooksUIInp.getGrade()==null))
+        // We can check for presence of grade value as non-zero,but 0 can also be an update item so no check as of now
+        if(gid != 0 && sid != 0 || aid != 0) {
+            Assignment assignment = assignmentService.updateAssignmentForStudentWithIdForGradeBook(gid, sid, aid, gradeBooksUIInp.getGrade() ,gradeBooksUIInp.getFeedback() );
+            if(assignment != null ) {
+                try {
+                    jsonString = mapper.writeValueAsString(assignment);
+                } catch (JsonProcessingException e) {
+                // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } 
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                System.out.println(locationURI);
+                response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+            } else {
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+            }
+        } else {
+            locationURI = URI.create(context.getAbsolutePath().toString());
+            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+        }
+        return response;
+    }
+    
+    
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{aid}")
+    public Response getAssignmentForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, @PathParam("aid") int aid,GradeBooksUIInp gradeBooksUIInp) {
+        Response response = null;
+        URI locationURI;
+        String jsonString = null;
+        if(gid != 0 && sid != 0 || aid != 0) {
+            // We can check for presence of grade item value as non-zero,but 0 can also be an update item so no check as of now 
+            Assignment assignment = assignmentService.getAssignmentForStudentWithIdForGradeBook(gid, sid, aid);
+            if(assignment != null ) {
+                try {
+                    jsonString = mapper.writeValueAsString(assignment);
+                } catch (JsonProcessingException e) {
+                // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } 
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                System.out.println(locationURI);
+                response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+            } else {
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+            }
+        } else {
+            locationURI = URI.create(context.getAbsolutePath().toString());
+            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+        }
+        
+        return response;
+    }
+    
+    
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    //@Path("{aid}")
+    public Response getAllAssignmentForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid,GradeBooksUIInp gradeBooksUIInp) {
+        Response response = null;
+        URI locationURI;
+        String jsonString = null;
+        if(gid != 0 && sid != 0) {
+            // We can check for presence of grade item value as non-zero,but 0 can also be an update item so no check as of now 
+            List<Assignment> assignments = assignmentService.getAllAssignmentForStudentWithIdForGradeBook(gid, sid);
+            if(assignments != null ) {
+                try {
+                    jsonString = mapper.writeValueAsString(assignments);
+                } catch (JsonProcessingException e) {
+                // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } 
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                System.out.println(locationURI);
+                response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+            } else {
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+            }
+        } else {
+            locationURI = URI.create(context.getAbsolutePath().toString());
+            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+        }
+        
+        return response;
+    }
+    
+    
+    
+/*
+ * 
+ *  @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createNewAssigmentForAllStudentForGradeBook(@PathParam("gid") int gid, GradeBooksUIInp gradeBooksUIInp) {
@@ -143,26 +309,7 @@ public class AssignmentResource {
         return response;
     }
     
-    @DELETE
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("{sid}")
-    public Response deleteStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, GradeBooksUIInp gradeBooksUIInp) {
-        Response response = null;
-        URI locationURI;
-        int status = studentService.deleteStudentWithIdForGradeBook(gid,sid);
-        if(status == 1) {
-            locationURI = URI.create(context.getAbsolutePath().toString());
-            System.out.println(locationURI);
-            response = Response.status(Response.Status.OK).location(locationURI).build();
-        } else {
-            locationURI = URI.create(context.getAbsolutePath().toString());
-            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
-        }
-        return response;
-    }
-    
-    
+  
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -216,4 +363,6 @@ public class AssignmentResource {
         }
         return response;
     }
+*/
+    
 }

@@ -16,6 +16,7 @@ public class GradeBooksUIInp {
     private int studentId;
     private String name;
     private int grade;
+    private String feedback;
     
     public GradeBooksUIInp() {
         //LOG.info("Creating an GradeBooks object");
@@ -69,17 +70,19 @@ public class GradeBooksUIInp {
         this.grade = grade;
     }
 
-    @Override
-    public String toString() {
-        return "GradeBooks [comboText=" + comboText + ", gradeBookId="
-                + gradeBookId + ", gradeItemId=" + gradeItemId + ", studentId="
-                + studentId + ", name=" + name + ", grade=" + grade + "]";
+    public String getFeedback() {
+        return feedback;
     }
-    
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+     
     public static void main(String[] args) {
         ObjectMapper mapper = new ObjectMapper();
         GradeBooksUIInp inp = new GradeBooksUIInp();
         inp.setName("CSE 564 GRADEBOOK");
+        inp.setFeedback("Feed back");
         
         String a = "www.google.com/services/rest/get/88";
        System.out.println(a.substring(0,a.lastIndexOf("/") ));

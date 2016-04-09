@@ -20,7 +20,16 @@ public class Assignment {
 
     private int id;
     private String title;
-    private int grade;
+    private int grade = -100;
+    private String feedback;
+    
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
     
     public Assignment() {
         // TODO Auto-generated constructor stub
@@ -34,7 +43,7 @@ public class Assignment {
         this.title = title;
         
         //Default value of the grades when initially assigned
-        this.grade = -1;
+        //this.grade = -1;
     }
 
 

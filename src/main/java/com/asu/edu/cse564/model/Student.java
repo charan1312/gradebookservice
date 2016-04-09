@@ -6,7 +6,7 @@ import java.util.List;
 public class Student {
     private int sid;
     private String sName;
-    private List<Assignment> assigments;
+    private List<Assignment> assignments;
     private List<Quiz> quizs;
     private List<Lab> labs;
     private MidTerm midTerm;
@@ -15,7 +15,7 @@ public class Student {
         super();
         this.sid = sid;
         this.sName = sName;
-        this.assigments = new ArrayList<Assignment>();
+        this.assignments = new ArrayList<Assignment>();
         this.quizs = new ArrayList<Quiz>();
         this.labs = new ArrayList<Lab>();
         this.midTerm = new MidTerm();
@@ -34,11 +34,11 @@ public class Student {
         this.sName = sName;
     }
     
-    public List<Assignment> getAssigments() {
-        return assigments;
+    public List<Assignment> getAssignments() {
+        return assignments;
     }
-    public void setAssigments(List<Assignment> assigments) {
-        this.assigments = assigments;
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
     }
     
     public List<Quiz> getQuizs() {

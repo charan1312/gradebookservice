@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.asu.edu.cse564.model.Assignment;
 import com.asu.edu.cse564.model.GradeBook;
 import com.asu.edu.cse564.model.GradeBooks;
+import com.asu.edu.cse564.model.Lab;
+import com.asu.edu.cse564.model.Quiz;
 import com.asu.edu.cse564.model.Student;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,7 +17,9 @@ public class StudentService {
     public ObjectMapper mapper = new ObjectMapper();
     
     //private static int count;
-    //private static int scount;
+    private static int asgcount;
+    private static int qcount;
+    private static int lcount;
     
     //NEED TO SEE IF WE HAVE TO AUTOGENERATE THE ID
     public Student addStudent(int gbid, int sid, String sName) {
@@ -186,4 +191,92 @@ public class StudentService {
         return null;
     }
 
+    public Assignment addAssignmentForAllStudentForGradeBook(int gbid, String name) {
+        GradeBook gradeBook;//GradeBook.studentsMap.get(sid);
+        Iterator<GradeBook> gbIterator =  GradeBooks.gradeBooks.iterator();
+        int i = 0 ; 
+        int flag = 0;
+        while(gbIterator.hasNext()) {
+            ++i;
+            GradeBook g = gbIterator.next();
+            System.out.println("Inside while loop:" + g.getId() + " " +g.getName());
+            if(g.getId() == gbid) {
+                System.out.println("INSIDE MATCH");
+                flag = 1;
+                break;
+            }
+        }
+        System.out.println("Flag val:" + flag + "I val:" + i);
+        if(flag == 1) {
+            gradeBook = GradeBooks.gradeBooks.get(--i);
+            gradeBook.studentsMap.values();
+            Assignment assignment = new Assignment(++asgcount, name);
+            for(Student s : gradeBook.studentsMap.values()) {
+                s.getAssignments().add(assignment);
+            }
+            return assignment;
+        }
+        
+        return null;
+    }
+
+    
+    public Quiz addQuizForAllStudentForGradeBook(int gbid, String name) {
+        GradeBook gradeBook;//GradeBook.studentsMap.get(sid);
+        Iterator<GradeBook> gbIterator =  GradeBooks.gradeBooks.iterator();
+        int i = 0 ; 
+        int flag = 0;
+        while(gbIterator.hasNext()) {
+            ++i;
+            GradeBook g = gbIterator.next();
+            System.out.println("Inside while loop:" + g.getId() + " " +g.getName());
+            if(g.getId() == gbid) {
+                System.out.println("INSIDE MATCH");
+                flag = 1;
+                break;
+            }
+        }
+        System.out.println("Flag val:" + flag + "I val:" + i);
+        if(flag == 1) {
+            gradeBook = GradeBooks.gradeBooks.get(--i);
+            gradeBook.studentsMap.values();
+            Quiz quiz = new Quiz(++qcount, name);
+            for(Student s : gradeBook.studentsMap.values()) {
+                s.getQuizs().add(quiz);
+            }
+            return quiz;
+        }
+        
+        return null;
+    }
+    
+    
+    public Lab addLabForAllStudentForGradeBook(int gbid, String name) {
+        GradeBook gradeBook;//GradeBook.studentsMap.get(sid);
+        Iterator<GradeBook> gbIterator =  GradeBooks.gradeBooks.iterator();
+        int i = 0 ; 
+        int flag = 0;
+        while(gbIterator.hasNext()) {
+            ++i;
+            GradeBook g = gbIterator.next();
+            System.out.println("Inside while loop:" + g.getId() + " " +g.getName());
+            if(g.getId() == gbid) {
+                System.out.println("INSIDE MATCH");
+                flag = 1;
+                break;
+            }
+        }
+        System.out.println("Flag val:" + flag + "I val:" + i);
+        if(flag == 1) {
+            gradeBook = GradeBooks.gradeBooks.get(--i);
+            gradeBook.studentsMap.values();
+            Lab lab = new Lab(++lcount, name);
+            for(Student s : gradeBook.studentsMap.values()) {
+                s.getLabs().add(lab);
+            }
+            return lab;
+        }
+        
+        return null;
+    }
 }

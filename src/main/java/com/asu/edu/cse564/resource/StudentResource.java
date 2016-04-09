@@ -17,8 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import com.asu.edu.cse564.model.GradeBook;
-import com.asu.edu.cse564.model.GradeBooks;
+import com.asu.edu.cse564.model.Assignment;
 import com.asu.edu.cse564.model.GradeBooksUIInp;
 import com.asu.edu.cse564.model.Student;
 import com.asu.edu.cse564.service.StudentService;
@@ -104,7 +103,7 @@ public class StudentResource {
         }
         else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
+            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build(); //BAD_REQUEST aa?
         }
         return response;
     }
@@ -139,7 +138,7 @@ public class StudentResource {
         }
         else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
+            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
         }
         return response;
     }
@@ -217,4 +216,42 @@ public class StudentResource {
         }
         return response;
     }
+    
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("Assignment")
+    public Response createNewAssignmentForAllStudentForGradeBook(@PathParam("gid") int gid, GradeBooksUIInp gradeBooksUIInp) {
+        System.out.println("Into the student resources--" + "---" + gid +"---"  + gradeBooksUIInp.getGradeBookId() + gradeBooksUIInp.getStudentId() + gradeBooksUIInp.getName() );
+        Response response = null; 
+        URI locationURI;
+        if( !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)     //) && 
+            //!(gradeBooksUIInp.getStudentId() == 0 )
+          ) {
+            Assignment assignment = studentService.addAssignmentForAllStudentForGradeBook(gid, gradeBooksUIInp.getName());
+            System.out.println("Student Res:" + assignment);
+            if(assignment != null) {
+                String jsonString = null;
+                try {
+                    jsonString = mapper.writeValueAsString(assignment);
+                } catch (JsonProcessingException e) {
+                // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }                
+                //locationURI = URI.create(context.getAbsolutePath() + "/" + gradeBook.getId());
+                locationURI = context.getAbsolutePathBuilder().path(String.valueOf(assignment.getId())).build();
+                System.out.println(locationURI);
+                response = Response.status(Response.Status.CREATED).location(locationURI).entity(jsonString).build();
+            } else {
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            }
+        }
+        else {
+            locationURI = URI.create(context.getAbsolutePath().toString());
+            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
+        }
+        return response;
+    }    
 }

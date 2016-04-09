@@ -11,27 +11,19 @@ public class MidTerm {
 //    private int id;
 //    private String name;
     private int grade = -100;
+    private String feedback;
     
-    public MidTerm() {
-        // TODO Auto-generated constructor stub
-        //LOG.info("Creating the MidTerm class");
+    public String getFeedback() {
+        return feedback;
     }
-    
-//    public int getId() {
-//        return id;
-//    }
-//    
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-    
-//    public String getName() {
-//        return name;
-//    }
-//    
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
+    public MidTerm() {
+
+    }
     
     public int getGrade() {
         return grade;

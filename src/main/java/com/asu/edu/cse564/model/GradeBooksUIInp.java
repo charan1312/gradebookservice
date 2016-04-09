@@ -13,6 +13,7 @@ public class GradeBooksUIInp {
     private int studentId;
     private String name;
     private int grade;
+    private String feedback;
     
     public GradeBooksUIInp() {
         //LOG.info("Creating an GradeBooks object");
@@ -66,10 +67,12 @@ public class GradeBooksUIInp {
         this.grade = grade;
     }
 
-    @Override
-    public String toString() {
-        return "GradeBooks [comboText=" + comboText + ", gradeBookId="
-                + gradeBookId + ", gradeItemId=" + gradeItemId + ", studentId="
-                + studentId + ", name=" + name + ", grade=" + grade + "]";
+    public String getFeedback() {
+        return feedback;
     }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+    
 }
