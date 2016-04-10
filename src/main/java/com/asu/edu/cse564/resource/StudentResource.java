@@ -37,7 +37,7 @@ public class StudentResource {
     @Context
     private UriInfo context;
     
-    @POST
+    @POST                                                   //DONE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     //@Path("/gradebooks/gradebook/{gid}/Student")
@@ -78,7 +78,7 @@ public class StudentResource {
     }
     
     
-    @GET
+    @GET                                                                       //DONE
     //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{sid}")
@@ -86,7 +86,7 @@ public class StudentResource {
         System.out.println("Into the get student--" + "---" + gid +"---"  + sid );
         Response response = null; 
         URI locationURI;
-        if( sid != 0 ) {
+        if( gid !=0 && sid != 0 ) {
             Student student = studentService.getstudent(gid, sid);
             System.out.println("Student Res:" + student);
             if(student != null) {
@@ -111,13 +111,13 @@ public class StudentResource {
         else {
             //locationURI = URI.create(context.getAbsolutePath().toString());
             //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build(); //BAD_REQUEST aa?
-            String error = "Student Id Cant be Zero";
+            String error = "Student Id or Grade Id Cant be Zero or Empty";
             response = Response.status(Response.Status.BAD_REQUEST).entity(error).build(); //BAD_REQUEST aa?
         }
         return response;
     }
 
-    @GET
+    @GET                                               //DONE
     //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     //@Path("{sid}")
@@ -150,57 +150,67 @@ public class StudentResource {
         else {
             //locationURI = URI.create(context.getAbsolutePath().toString());
             //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
-            String error = "GradeBook Id Cant be Zero";
+            String error = "GradeBook Id Cant be Zero or Empty";
             response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         return response;
     }
     
-    @DELETE
+    @DELETE                                                    //DONE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{sid}")
     public Response deleteStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, GradeBooksUIInp gradeBooksUIInp) {
         Response response = null;
         URI locationURI;
-        int status = studentService.deleteStudentWithIdForGradeBook(gid,sid);
-        if(status == 1) {
-            locationURI = URI.create(context.getAbsolutePath().toString());
-            System.out.println(locationURI);
-            //response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();
-            response = Response.status(Response.Status.NO_CONTENT).build();
+        if( gid != 0  && sid != 0 ) {
+            int status = studentService.deleteStudentWithIdForGradeBook(gid,sid);
+            if(status == 1) {
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                System.out.println(locationURI);
+                //response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();
+                response = Response.status(Response.Status.NO_CONTENT).build();
+            } else {
+                //locationURI = URI.create(context.getAbsolutePath().toString());
+                //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
+            }
         } else {
-            //locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
-            response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
+            String error = "Student Id or Grade Id Cant be Zero or Empty";
+            response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
+        
         return response;
     }
     
     
-    @DELETE
+    @DELETE                                                             //DONE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteAllStudentForGradeBook(@PathParam("gid") int gid, GradeBooksUIInp gradeBooksUIInp) {
         Response response = null;
         URI locationURI;
-        
-        int status = studentService.deleteAllStudentForGradeBook(gid);
-        if(status == 1) {
-            locationURI = URI.create(context.getAbsolutePath().toString());
-            System.out.println(locationURI);
-            //response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();
-            response = Response.status(Response.Status.NO_CONTENT).build();
+        if( gid != 0 ) {        
+            int status = studentService.deleteAllStudentForGradeBook(gid);
+            if(status == 1) {
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                System.out.println(locationURI);
+                //response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();
+                response = Response.status(Response.Status.NO_CONTENT).build();
+            } else {
+                //locationURI = URI.create(context.getAbsolutePath().toString());
+                //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+                response = Response.status(Response.Status.NOT_FOUND).build();
+            }
         } else {
-            //locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
-            response = Response.status(Response.Status.NOT_FOUND).build();
+            String error = "Grade Id Cant be Zero or Empty";
+            response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         return response;
     }
     
     
-    @PUT
+    @PUT                                             //DONE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{sid}")
@@ -209,7 +219,7 @@ public class StudentResource {
         URI locationURI;
         
         String jsonString = null;
-        if(!(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)) {
+        if(gid != 0 && sid != 0 && !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)) {
             Student student = studentService.updateStudentWithIdForGradeBook(gid, sid, gradeBooksUIInp.getName());//addGradebook(gradeBooksUIInp.getName());
             if(student != null) {
                 try {
@@ -231,7 +241,7 @@ public class StudentResource {
         } else {
             //locationURI = URI.create(context.getAbsolutePath().toString());
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
-            String error = "Student Name cant be Empty to Update";
+            String error = "Ids cant be zero/empty or Student Name cant be Empty to Update";
             response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         
@@ -239,7 +249,7 @@ public class StudentResource {
     }
     
     
-    @POST
+    @POST                                                  //DONE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("Assignment")
@@ -247,7 +257,7 @@ public class StudentResource {
         System.out.println("Into the student resources--" + "---" + gid +"---"  + gradeBooksUIInp.getGradeBookId() + gradeBooksUIInp.getStudentId() + gradeBooksUIInp.getName() );
         Response response = null; 
         URI locationURI;
-        if( !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)     //) && 
+        if( gid!=0 && !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)     //) && 
             //!(gradeBooksUIInp.getStudentId() == 0 )
           ) {
             Assignment assignment = studentService.addAssignmentForAllStudentForGradeBook(gid, gradeBooksUIInp.getName());
@@ -273,7 +283,7 @@ public class StudentResource {
         else {
             //locationURI = URI.create(context.getAbsolutePath().toString());
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
-            String error = "Assignment Name cant be Empty to Create";
+            String error = "Gradebook ID and Assignment Name cant be Empty to Create";
             response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         
@@ -288,7 +298,7 @@ public class StudentResource {
         System.out.println("Into the student resources--" + "---" + gid +"---"  + gradeBooksUIInp.getGradeBookId() + gradeBooksUIInp.getStudentId() + gradeBooksUIInp.getName() );
         Response response = null; 
         URI locationURI;
-        if( !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)     //) && 
+        if( gid!=0 && !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)     //) && 
             //!(gradeBooksUIInp.getStudentId() == 0 )
           ) {
             Quiz quiz = studentService.addQuizForAllStudentForGradeBook(gid, gradeBooksUIInp.getName());
@@ -314,7 +324,7 @@ public class StudentResource {
         else {
             //locationURI = URI.create(context.getAbsolutePath().toString());
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
-            String error = "Quiz Name cant be Empty to Create";
+            String error = "Gradebook ID and Quiz Name cant be Empty to Create";
             response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         
@@ -329,7 +339,7 @@ public class StudentResource {
         System.out.println("Into the student resources--" + "---" + gid +"---"  + gradeBooksUIInp.getGradeBookId() + gradeBooksUIInp.getStudentId() + gradeBooksUIInp.getName() );
         Response response = null; 
         URI locationURI;
-        if( !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)     //) && 
+        if( gid!=0 && !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)     //) && 
             //!(gradeBooksUIInp.getStudentId() == 0 )
           ) {
             Lab lab = studentService.addLabForAllStudentForGradeBook(gid, gradeBooksUIInp.getName());
@@ -355,7 +365,7 @@ public class StudentResource {
         else {
             //locationURI = URI.create(context.getAbsolutePath().toString());
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
-            String error = "Lab Name cant be Empty to Create";
+            String error = "Gradebook ID and Lab Name cant be Empty to Create";
             response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         

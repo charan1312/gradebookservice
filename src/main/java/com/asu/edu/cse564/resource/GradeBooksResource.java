@@ -50,7 +50,7 @@ public class GradeBooksResource {
     @Context
     private UriInfo context;
 
-    @GET
+    @GET                                               //DONE
     //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response showGradeBooksResource() {
@@ -62,8 +62,8 @@ public class GradeBooksResource {
         response = Response.status(Response.Status.OK).entity(jsonString).build();
         return response;
     }
-
-    @GET
+ 
+    @GET                                                 //DONE
     //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("gradebook/{id}")
@@ -85,7 +85,7 @@ public class GradeBooksResource {
     }
 
     
-    @POST
+    @POST                                                                                   // DONE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("gradebook")
@@ -116,7 +116,7 @@ public class GradeBooksResource {
     }
     
     
-    @PUT
+    @PUT                                                            //DONE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("gradebook/{id}")
@@ -124,7 +124,7 @@ public class GradeBooksResource {
         Response response = null;
         URI locationURI;
         String jsonString = null;
-        if(!(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)) {
+        if(id!= 0  && !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)) {
             GradeBook gradeBook = gradeBooksService.updateGradeBook(id, gradeBooksUIInp.getName());//addGradebook(gradeBooksUIInp.getName());
             if(gradeBook != null) {
                 try {
@@ -147,13 +147,13 @@ public class GradeBooksResource {
         } else {
             //locationURI = URI.create(context.getAbsolutePath().toString());
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
-            String error = "Name of the GradeBook cant be empty - Cant Update";
+            String error = "ID Cant be Zero or Name of the GradeBook cant be empty - Cant Update";
             response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         return response;
     }
     
-    @DELETE
+    @DELETE                                                             //done
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("gradebook/{id}")
@@ -175,7 +175,7 @@ public class GradeBooksResource {
         return response;
     }
 
-    @DELETE
+    @DELETE                                                      //DONE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteAllGradeBooks() {

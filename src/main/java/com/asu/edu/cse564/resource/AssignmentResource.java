@@ -35,7 +35,7 @@ public class AssignmentResource {
     @Context
     private UriInfo context;
 
-    @POST
+    @POST                                                                  //DONE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{aid}")
@@ -72,7 +72,7 @@ public class AssignmentResource {
     }
     
     
-    @DELETE
+    @DELETE                                               //DONE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{aid}")
@@ -103,7 +103,7 @@ public class AssignmentResource {
     }    
     
     
-    @PUT
+    @PUT                                                   //DONE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{aid}")
@@ -113,7 +113,7 @@ public class AssignmentResource {
         String jsonString = null;
         //if(!(gradeBooksUIInp.getGrade()==null))
         // We can check for presence of grade value as non-zero,but 0 can also be an update item so no check as of now
-        if(gid != 0 && sid != 0 || aid != 0) {
+        if(gid != 0 && sid != 0 && aid != 0) {
             Assignment assignment = assignmentService.updateAssignmentForStudentWithIdForGradeBook(gid, sid, aid, gradeBooksUIInp.getGrade() ,gradeBooksUIInp.getFeedback() );
             if(assignment != null ) {
                 try {
@@ -141,7 +141,7 @@ public class AssignmentResource {
     
     
     
-    @GET
+    @GET                                                           //DONE
     //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{aid}")
@@ -179,7 +179,7 @@ public class AssignmentResource {
     }
     
     
-    @GET
+    @GET                                                      //DONE
     //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     //@Path("{aid}")
