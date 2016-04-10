@@ -80,6 +80,7 @@ public class QuizService {
                     }
                     if(aflag == 1) {
                         s.getQuizs().remove(--ia);
+                        return 1;
                     } else {
                         return 0;
                     }

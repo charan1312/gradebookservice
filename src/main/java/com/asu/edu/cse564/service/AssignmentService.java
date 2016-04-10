@@ -79,6 +79,7 @@ public class AssignmentService {
                     }
                     if(aflag == 1) {
                         s.getAssignments().remove(--ia);
+                        return 1;
                     } else {
                         return 0;
                     }

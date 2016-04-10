@@ -80,6 +80,7 @@ public class LabService {
                     }
                     if(aflag == 1) {
                         s.getLabs().remove(--ia);
+                        return 1;
                     } else {
                         return 0;
                     }

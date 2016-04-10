@@ -3,6 +3,8 @@ package com.asu.edu.cse564.resource;
 import java.net.URI;
 //import java.util.List;
 
+
+
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 //import javax.ws.rs.DELETE;
@@ -120,12 +122,15 @@ public class MidTermResource {
                 System.out.println(locationURI);
                 response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
             } else {
-                locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                //locationURI = URI.create(context.getAbsolutePath().toString());
+                //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
-            locationURI = URI.create(context.getAbsolutePath().toString());
-            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            //locationURI = URI.create(context.getAbsolutePath().toString());
+            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            String error = "Neither of the Id value can be zero - Cant Update";
+            response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         return response;
     }
@@ -133,10 +138,10 @@ public class MidTermResource {
     
     
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
+    //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     //@Path("{aid}")
-    public Response getMidTermForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, GradeBooksUIInp gradeBooksUIInp) {
+    public Response getMidTermForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid) {
         Response response = null;
         URI locationURI;
         String jsonString = null;
@@ -152,14 +157,18 @@ public class MidTermResource {
                 } 
                 locationURI = URI.create(context.getAbsolutePath().toString());
                 System.out.println(locationURI);
-                response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+                //response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+                response = Response.status(Response.Status.OK).entity(jsonString).build();
             } else {
-                locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                //locationURI = URI.create(context.getAbsolutePath().toString());
+                //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
-            locationURI = URI.create(context.getAbsolutePath().toString());
-            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            //locationURI = URI.create(context.getAbsolutePath().toString());
+            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            String error = "Neither of the Id value can be zero - Cant Read";
+            response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         
         return response;

@@ -210,9 +210,11 @@ public class StudentService {
         if(flag == 1) {
             gradeBook = GradeBooks.gradeBooks.get(--i);
             gradeBook.studentsMap.values();
-            Assignment assignment = new Assignment(++asgcount, name);
+            ++asgcount;
+            Assignment assignment = new Assignment(asgcount, name);
             for(Student s : gradeBook.studentsMap.values()) {
-                s.getAssignments().add(assignment);
+                Assignment assignment1 = new Assignment(asgcount, name);
+                s.getAssignments().add(assignment1);
             }
             return assignment;
         }
@@ -240,9 +242,11 @@ public class StudentService {
         if(flag == 1) {
             gradeBook = GradeBooks.gradeBooks.get(--i);
             gradeBook.studentsMap.values();
-            Quiz quiz = new Quiz(++qcount, name);
+            ++qcount;
+            Quiz quiz = new Quiz(qcount, name);
             for(Student s : gradeBook.studentsMap.values()) {
-                s.getQuizs().add(quiz);
+                Quiz quiz1 = new Quiz(qcount, name);
+                s.getQuizs().add(quiz1);
             }
             return quiz;
         }
@@ -270,9 +274,11 @@ public class StudentService {
         if(flag == 1) {
             gradeBook = GradeBooks.gradeBooks.get(--i);
             gradeBook.studentsMap.values();
-            Lab lab = new Lab(++lcount, name);
+            ++lcount;
+            Lab lab = new Lab(lcount, name);
             for(Student s : gradeBook.studentsMap.values()) {
-                s.getLabs().add(lab);
+                Lab lab1 = new Lab(lcount, name);
+                s.getLabs().add(lab1);
             }
             return lab;
         }

@@ -46,7 +46,7 @@ public class LabResource {
         String jsonString = null;
         //if(!(gradeBooksUIInp.getGrade()==null))
         // We can check for presence of grade value as non-zero,but 0 can also be an update item so no check as of now
-        if(gid != 0 && sid != 0 || aid != 0) {
+        if((gid != 0 && sid != 0 && aid != 0) && (gradeBooksUIInp.getName() != null) ) {
             Lab lab = labService.addLabForStudentWithIdForGradeBook(gid, sid, aid, gradeBooksUIInp.getName() );
             if(lab != null ) {
                 try {
@@ -57,14 +57,17 @@ public class LabResource {
                 } 
                 locationURI = URI.create(context.getAbsolutePath().toString());
                 System.out.println(locationURI);
-                response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+                response = Response.status(Response.Status.CREATED).location(locationURI).entity(jsonString).build();
             } else {
-                locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();  //NO_CONTENT aa??
+                //locationURI = URI.create(context.getAbsolutePath().toString());
+                //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
-            locationURI = URI.create(context.getAbsolutePath().toString());
-            response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();
+            //locationURI = URI.create(context.getAbsolutePath().toString());
+            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            String error = "Either an Id value is zero or Lab Name is empty - Cant Create";
+            response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         return response;
     }
@@ -77,20 +80,24 @@ public class LabResource {
     public Response deleteLabForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, @PathParam("aid") int aid,GradeBooksUIInp gradeBooksUIInp) {
         Response response = null;
         URI locationURI;
-        if(gid != 0 && sid != 0 || aid != 0) {
+        if(gid != 0 && sid != 0 && aid != 0) {
             int status = labService.deleteLabForStudentWithIdForGradeBook(gid, sid, aid);
             if(status == 1) {
                 locationURI = URI.create(context.getAbsolutePath().toString());
                 System.out.println(locationURI);
-                response = Response.status(Response.Status.OK).location(locationURI).build();
+                //response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();
+                response = Response.status(Response.Status.NO_CONTENT).build();
             } else {
-                locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                //locationURI = URI.create(context.getAbsolutePath().toString());
+                //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         }
         else {
-            locationURI = URI.create(context.getAbsolutePath().toString());
-            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();            
+            //locationURI = URI.create(context.getAbsolutePath().toString());
+            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            String error = "Neither of the Id value can be zero - Cant Delete";
+            response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
             
         return response;
@@ -107,7 +114,7 @@ public class LabResource {
         String jsonString = null;
         //if(!(gradeBooksUIInp.getGrade()==null))
         // We can check for presence of grade value as non-zero,but 0 can also be an update item so no check as of now
-        if(gid != 0 && sid != 0 || aid != 0) {
+        if(gid != 0 && sid != 0 && aid != 0) {
             Lab lab = labService.updateLabForStudentWithIdForGradeBook(gid, sid, aid, gradeBooksUIInp.getGrade() ,gradeBooksUIInp.getFeedback() );
             if(lab != null ) {
                 try {
@@ -120,12 +127,15 @@ public class LabResource {
                 System.out.println(locationURI);
                 response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
             } else {
-                locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                //locationURI = URI.create(context.getAbsolutePath().toString());
+                //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
-            locationURI = URI.create(context.getAbsolutePath().toString());
-            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            //locationURI = URI.create(context.getAbsolutePath().toString());
+            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            String error = "Neither of the Id value can be zero - Cant Update Grade";
+            response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         return response;
     }
@@ -133,14 +143,14 @@ public class LabResource {
     
     
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
+    //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{aid}")
-    public Response getLabForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, @PathParam("aid") int aid,GradeBooksUIInp gradeBooksUIInp) {
+    public Response getLabForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, @PathParam("aid") int aid) {
         Response response = null;
         URI locationURI;
         String jsonString = null;
-        if(gid != 0 && sid != 0 || aid != 0) {
+        if(gid != 0 && sid != 0 && aid != 0) {
             // We can check for presence of grade item value as non-zero,but 0 can also be an update item so no check as of now 
             Lab lab = labService.getLabForStudentWithIdForGradeBook(gid, sid, aid);
             if(lab != null ) {
@@ -152,14 +162,18 @@ public class LabResource {
                 } 
                 locationURI = URI.create(context.getAbsolutePath().toString());
                 System.out.println(locationURI);
-                response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+                //response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+                response = Response.status(Response.Status.OK).entity(jsonString).build();
             } else {
-                locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                //locationURI = URI.create(context.getAbsolutePath().toString());
+                //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
-            locationURI = URI.create(context.getAbsolutePath().toString());
-            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            //locationURI = URI.create(context.getAbsolutePath().toString());
+            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            String error = "Neither of the Id value can be zero - Cant Read";
+            response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         
         return response;
@@ -167,10 +181,10 @@ public class LabResource {
     
     
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
+    //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     //@Path("{aid}")
-    public Response getAllLabForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid,GradeBooksUIInp gradeBooksUIInp) {
+    public Response getAllLabForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid) {
         Response response = null;
         URI locationURI;
         String jsonString = null;
@@ -186,14 +200,18 @@ public class LabResource {
                 } 
                 locationURI = URI.create(context.getAbsolutePath().toString());
                 System.out.println(locationURI);
-                response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+                //response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+                response = Response.status(Response.Status.OK).entity(jsonString).build();
             } else {
-                locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                //locationURI = URI.create(context.getAbsolutePath().toString());
+                //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
-            locationURI = URI.create(context.getAbsolutePath().toString());
-            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            //locationURI = URI.create(context.getAbsolutePath().toString());
+            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            String error = "Neither of the Id value can be zero - Cant Read";
+            response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         
         return response;
