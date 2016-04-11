@@ -58,8 +58,8 @@ public class GradeBooksResource {
         String jsonString = gradeBooksService.getAllGradeBooks();
         URI locationURI = URI.create(context.getAbsolutePath().toString());
         System.out.println(locationURI);
-        //response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
-        response = Response.status(Response.Status.OK).entity(jsonString).build();
+        response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+        //response = Response.status(Response.Status.OK).entity(jsonString).build();
         return response;
     }
  
@@ -74,12 +74,12 @@ public class GradeBooksResource {
         if(jsonString != null) {
             locationURI = URI.create(context.getAbsolutePath().toString());//.substring(0, context.getAbsolutePath().toString().lastIndexOf("/")));
             System.out.println(locationURI);
-            //response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
-            response = Response.status(Response.Status.OK).entity(jsonString).build();
+            response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+            //response = Response.status(Response.Status.OK).entity(jsonString).build();
         } else {
-            //locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(jsonString).build();
-            response = Response.status(Response.Status.NOT_FOUND).build();
+            locationURI = URI.create(context.getAbsolutePath().toString());
+            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(jsonString).build();
+            //response = Response.status(Response.Status.NOT_FOUND).build();
         }
         return response;
     }
@@ -107,10 +107,10 @@ public class GradeBooksResource {
             response = Response.status(Response.Status.CREATED).location(locationURI).entity(jsonString).build();
         }
         else {
-            //locationURI = URI.create(context.getAbsolutePath().toString());
+            locationURI = URI.create(context.getAbsolutePath().toString());
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
             String error = "Name of the GradeBook cant be empty - Cant Create";
-            response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
+            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
         }
         return response;
     }
@@ -136,19 +136,19 @@ public class GradeBooksResource {
                 //should give full path including the /99
                 locationURI = URI.create(context.getAbsolutePath().toString());//.substring(0, context.getAbsolutePath().toString().lastIndexOf("/")));
                 System.out.println(locationURI);
-                //response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
-                response = Response.status(Response.Status.OK).entity(jsonString).build();
+                response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
+                //response = Response.status(Response.Status.OK).entity(jsonString).build();
             } else{
                 //WE SHOULD DELETE THE PATH /88
-                //locationURI = URI.create(context.getAbsolutePath().toString());
-                //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
-                response = Response.status(Response.Status.NOT_FOUND).build();
+                locationURI = URI.create(context.getAbsolutePath().toString());
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+                //response = Response.status(Response.Status.NOT_FOUND).build();
             }
         } else {
-            //locationURI = URI.create(context.getAbsolutePath().toString());
+            locationURI = URI.create(context.getAbsolutePath().toString());
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
             String error = "ID Cant be Zero or Name of the GradeBook cant be empty - Cant Update";
-            response = Response.status(Response.Status.BAD_REQUEST).entity(error).build();
+            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
         }
         return response;
     }
@@ -165,12 +165,12 @@ public class GradeBooksResource {
             //CHANGE THE URI TO REMOVE /99 
             locationURI = URI.create(context.getAbsolutePath().toString());//.substring(0, context.getAbsolutePath().toString().lastIndexOf("/")));
             System.out.println(locationURI);
-            //response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();
-            response = Response.status(Response.Status.NO_CONTENT).build();
+            response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();
+            //response = Response.status(Response.Status.NO_CONTENT).build();
         } else {
-            //locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
-            response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
+            locationURI = URI.create(context.getAbsolutePath().toString());
+            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+            //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
         }
         return response;
     }
@@ -186,12 +186,12 @@ public class GradeBooksResource {
         if(status == 1) {
             locationURI = URI.create(context.getAbsolutePath().toString());
             System.out.println(locationURI);
-            //response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();
-            response = Response.status(Response.Status.NO_CONTENT).build();
+            response = Response.status(Response.Status.NO_CONTENT).location(locationURI).build();
+            //response = Response.status(Response.Status.NO_CONTENT).build();
         } else {
-            //locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
-            response = Response.status(Response.Status.NOT_FOUND).build();
+            locationURI = URI.create(context.getAbsolutePath().toString());
+            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+            //response = Response.status(Response.Status.NOT_FOUND).build();
         }
         return response;
     }
