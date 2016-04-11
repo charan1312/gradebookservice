@@ -5,6 +5,8 @@ import java.net.URI;
 
 
 
+
+
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 //import javax.ws.rs.DELETE;
@@ -123,14 +125,15 @@ public class MidTermResource {
                 response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                String error = "Resource Not Found";
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
             String error = "Neither of the Id value can be zero - Cant Update";
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         return response;
     }
@@ -161,14 +164,15 @@ public class MidTermResource {
                 //response = Response.status(Response.Status.OK).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                String error = "Resource Not Found";
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
             String error = "Neither of the Id value can be zero - Cant Read";
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         
         return response;

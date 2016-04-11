@@ -45,9 +45,7 @@ public class StudentResource {
         System.out.println("Into the student resources--" + "---" + gid +"---"  + gradeBooksUIInp.getGradeBookId() + gradeBooksUIInp.getStudentId() + gradeBooksUIInp.getName() );
         Response response = null; 
         URI locationURI;
-        if( !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null) && 
-            !(gradeBooksUIInp.getStudentId() == 0 )
-          ) {
+        if( gradeBooksUIInp.getName() != null && gradeBooksUIInp.getStudentId() != 0 ) {
             Student student = studentService.addStudent(gid, gradeBooksUIInp.getStudentId(),gradeBooksUIInp.getName());
             System.out.println("Student Res:" + student);
             if(student != null) {
@@ -64,15 +62,16 @@ public class StudentResource {
                 response = Response.status(Response.Status.CREATED).location(locationURI).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+                String error = "Resource Not Found";
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();
                 //response = Response.status(Response.Status.NOT_FOUND).build();
             }
         }
         else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
             String error = "Either Name or Student Id is Missing";
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         return response;
     }
@@ -104,15 +103,16 @@ public class StudentResource {
                 //response = Response.status(Response.Status.OK).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+                String error = "Resource Not Found";
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();
                 //response = Response.status(Response.Status.NOT_FOUND).build();
             }
         }
         else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build(); //BAD_REQUEST aa?
             String error = "Student Id or Grade Id Cant be Zero or Empty";
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build(); //BAD_REQUEST aa?
+            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build(); //BAD_REQUEST aa?
         }
         return response;
     }
@@ -143,15 +143,16 @@ public class StudentResource {
                 //response = Response.status(Response.Status.OK).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+                String error = "Resource Not Found";
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();
                 //response = Response.status(Response.Status.NOT_FOUND).build();
             }
         }
         else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
             String error = "GradeBook Id Cant be Zero or Empty";
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         return response;
     }
@@ -172,7 +173,8 @@ public class StudentResource {
                 //response = Response.status(Response.Status.NO_CONTENT).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();  //NO_CONTENT aa??
+                String error = "Resource Not Found";
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
@@ -200,7 +202,8 @@ public class StudentResource {
                 //response = Response.status(Response.Status.NO_CONTENT).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+                String error = "Resource Not Found";
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();
                 //response = Response.status(Response.Status.NOT_FOUND).build();
             }
         } else {
@@ -221,7 +224,7 @@ public class StudentResource {
         URI locationURI;
         
         String jsonString = null;
-        if(gid != 0 && sid != 0 && !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)) {
+        if(gid != 0 && sid != 0 && gradeBooksUIInp.getName() != null) {
             Student student = studentService.updateStudentWithIdForGradeBook(gid, sid, gradeBooksUIInp.getName());//addGradebook(gradeBooksUIInp.getName());
             if(student != null) {
                 try {
@@ -237,14 +240,15 @@ public class StudentResource {
             } else{
                 //WE SHOULD DELETE THE PATH /88
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+                String error = "Resource Not Found";
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();
                 //response = Response.status(Response.Status.NOT_FOUND).build();
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
             String error = "Ids cant be zero/empty or Student Name cant be Empty to Update";
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         
         return response;
@@ -259,9 +263,7 @@ public class StudentResource {
         System.out.println("Into the student resources--" + "---" + gid +"---"  + gradeBooksUIInp.getGradeBookId() + gradeBooksUIInp.getStudentId() + gradeBooksUIInp.getName() );
         Response response = null; 
         URI locationURI;
-        if( gid!=0 && !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)     //) && 
-            //!(gradeBooksUIInp.getStudentId() == 0 )
-          ) {
+        if( gid != 0 && gradeBooksUIInp.getName() != null ) {
             Assignment assignment = studentService.addAssignmentForAllStudentForGradeBook(gid, gradeBooksUIInp.getName());
             System.out.println("Student Res:" + assignment);
             if(assignment != null) {
@@ -278,15 +280,16 @@ public class StudentResource {
                 response = Response.status(Response.Status.CREATED).location(locationURI).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+                String error = "Resource Not Found";
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();
                 //response = Response.status(Response.Status.NOT_FOUND).build();
             }
         }
         else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
             String error = "Gradebook ID and Assignment Name cant be Empty to Create";
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         
         return response;
@@ -300,9 +303,7 @@ public class StudentResource {
         System.out.println("Into the student resources--" + "---" + gid +"---"  + gradeBooksUIInp.getGradeBookId() + gradeBooksUIInp.getStudentId() + gradeBooksUIInp.getName() );
         Response response = null; 
         URI locationURI;
-        if( gid!=0 && !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)     //) && 
-            //!(gradeBooksUIInp.getStudentId() == 0 )
-          ) {
+        if( gid!=0 && gradeBooksUIInp.getName() != null ) {
             Quiz quiz = studentService.addQuizForAllStudentForGradeBook(gid, gradeBooksUIInp.getName());
             System.out.println("Student Res:" + quiz);
             if(quiz != null) {
@@ -319,15 +320,16 @@ public class StudentResource {
                 response = Response.status(Response.Status.CREATED).location(locationURI).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+                String error = "Resource Not Found";
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();
                 //response = Response.status(Response.Status.NOT_FOUND).build();
             }
         }
         else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
             String error = "Gradebook ID and Quiz Name cant be Empty to Create";
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         
         return response;
@@ -341,9 +343,7 @@ public class StudentResource {
         System.out.println("Into the student resources--" + "---" + gid +"---"  + gradeBooksUIInp.getGradeBookId() + gradeBooksUIInp.getStudentId() + gradeBooksUIInp.getName() );
         Response response = null; 
         URI locationURI;
-        if( gid!=0 && !(gradeBooksUIInp.getName().equals("") || gradeBooksUIInp.getName() == null)     //) && 
-            //!(gradeBooksUIInp.getStudentId() == 0 )
-          ) {
+        if( gid!=0 && gradeBooksUIInp.getName() != null) {
             Lab lab = studentService.addLabForAllStudentForGradeBook(gid, gradeBooksUIInp.getName());
             System.out.println("Student Res:" + lab);
             if(lab != null) {
@@ -360,15 +360,16 @@ public class StudentResource {
                 response = Response.status(Response.Status.CREATED).location(locationURI).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).build();
+                String error = "Resource Not Found";
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();
                 //response = Response.status(Response.Status.NOT_FOUND).build();
             }
         }
         else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
             String error = "Gradebook ID and Lab Name cant be Empty to Create";
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         
         return response;
