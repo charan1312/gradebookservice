@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import com.asu.edu.cse564.model.Assignment;
+import com.asu.edu.cse564.model.ErrorObject;
 import com.asu.edu.cse564.model.GradeBooksUIInp;
 import com.asu.edu.cse564.service.AssignmentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,6 +35,7 @@ public class AssignmentResource {
     
     @Context
     private UriInfo context;
+    private ErrorObject err = new ErrorObject();
 
     @POST                                                                  //DONE
     @Consumes(MediaType.APPLICATION_JSON)
@@ -59,14 +61,14 @@ public class AssignmentResource {
                 response = Response.status(Response.Status.CREATED).location(locationURI).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                String error = "Resource Not Found";
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();  //NO_CONTENT aa??
+                err.setError("Resource Not Found");
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            String error = "Either an Id value is zero or Assignment Name is empty - Cant Create";
-            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            err.setError("Either an Id value is zero or Assignment Name is empty - Cant Create");
+            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         return response;
@@ -89,15 +91,15 @@ public class AssignmentResource {
                 //response = Response.status(Response.Status.NO_CONTENT).build(); // OK + NOTHING TO RETURN
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                String error = "Resource Not Found";
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();  //NO_CONTENT aa??
+                err.setError("Resource Not Found");
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         }
         else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            String error = "Neither of the Id value can be zero - Cant Delete";
-            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            err.setError("Neither of the Id value can be zero - Cant Delete");
+            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();   //
         }
             
@@ -129,14 +131,14 @@ public class AssignmentResource {
                 response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                String error = "Resource Not Found";
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();  //NO_CONTENT aa??
+                err.setError("Resource Not Found");
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            String error = "Neither of the Id value can be zero - Cant Update Grade";
-            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            err.setError("Neither of the Id value can be zero - Cant Update Grade");
+            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         return response;
@@ -168,14 +170,14 @@ public class AssignmentResource {
                 //response = Response.status(Response.Status.OK).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                String error = "Resource Not Found";
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();  //NO_CONTENT aa??
+                err.setError("Resource Not Found");
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            String error = "Neither of the Id value can be zero - Cant Read";
-            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            err.setError("Neither of the Id value can be zero - Cant Read");
+            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         
@@ -207,14 +209,14 @@ public class AssignmentResource {
                 //response = Response.status(Response.Status.OK).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                String error = "Resource Not Found";
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();  //NO_CONTENT aa??
+                err.setError("Resource Not Found");
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            String error = "Neither of the Id value can be zero - Cant Read";
-            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            err.setError("Neither of the Id value can be zero - Cant Read");
+            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         

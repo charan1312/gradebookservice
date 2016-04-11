@@ -35,6 +35,8 @@ import javax.ws.rs.core.UriInfo;
 
 
 
+
+import com.asu.edu.cse564.model.ErrorObject;
 import com.asu.edu.cse564.model.GradeBook;
 import com.asu.edu.cse564.model.GradeBooks;
 import com.asu.edu.cse564.model.GradeBooksUIInp;
@@ -52,7 +54,8 @@ public class GradeBooksResource {
 
     @Context
     private UriInfo context;
-
+    private ErrorObject err = new ErrorObject();
+    
     @GET                                               //DONE
     //@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -82,8 +85,8 @@ public class GradeBooksResource {
             //response = Response.status(Response.Status.OK).entity(jsonString).build();
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            String error = "Resource not found";
-            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();
+            err.setError("Resource not found");
+            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.NOT_FOUND).build();
         }
         return response;
@@ -113,8 +116,8 @@ public class GradeBooksResource {
         }
         else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            String error = "Name of the GradeBook cant be empty - Cant Create";
-            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            err.setError("Name of the GradeBook cant be empty - Cant Create");
+            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         return response;
@@ -146,14 +149,14 @@ public class GradeBooksResource {
             } else{
                 //WE SHOULD DELETE THE PATH /88
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                String error = "Resource Not Found";
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();
+                err.setError("Resource Not Found");
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();
                 //response = Response.status(Response.Status.NOT_FOUND).build();
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            String error = "ID Cant be Zero or Name of the GradeBook cant be empty - Cant Update";
-            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            err.setError("ID Cant be Zero or Name of the GradeBook cant be empty - Cant Update");
+            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         return response;
@@ -176,14 +179,14 @@ public class GradeBooksResource {
                 //response = Response.status(Response.Status.NO_CONTENT).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                String error = "Resource Not Found";
-                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();  //NO_CONTENT aa??
+                err.setError("Resource Not Found");
+                response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            String error = "ID Cant be Zero - Cant Delete";
-            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(error).build();
+            err.setError("ID Cant be Zero - Cant Delete");
+            response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
         
@@ -205,8 +208,8 @@ public class GradeBooksResource {
             //response = Response.status(Response.Status.NO_CONTENT).build();
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            String error = "Resource Not Found";
-            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(error).build();
+            err.setError("Resource Not Found");
+            response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.NOT_FOUND).build();
         }
         return response;
