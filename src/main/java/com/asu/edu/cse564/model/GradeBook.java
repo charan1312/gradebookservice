@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class GradeBook {
 
     //public static List<Student> gradeBook;
-    public HashMap<Integer, Student> studentsMap = new HashMap<Integer, Student>();
+    public HashMap<Integer, Student> students = new HashMap<Integer, Student>();
     private int id;
     private String name;
     

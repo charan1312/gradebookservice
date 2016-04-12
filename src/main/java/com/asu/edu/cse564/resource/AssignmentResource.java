@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import com.asu.edu.cse564.model.Assignment;
+import com.asu.edu.cse564.model.ErrMessage;
 import com.asu.edu.cse564.model.ErrorObject;
 import com.asu.edu.cse564.model.GradeBooksUIInp;
 import com.asu.edu.cse564.service.AssignmentService;
@@ -35,7 +36,7 @@ public class AssignmentResource {
     
     @Context
     private UriInfo context;
-    private ErrorObject err = new ErrorObject();
+    //private ErrorObject err = new ErrorObject();
 
     @POST                                                                  //DONE
     @Consumes(MediaType.APPLICATION_JSON)
@@ -45,6 +46,8 @@ public class AssignmentResource {
         Response response = null;
         URI locationURI;
         String jsonString = null;
+        //ErrorObject err = new ErrorObject();
+        ErrMessage err = new ErrMessage();
         //if(!(gradeBooksUIInp.getGrade()==null))
         // We can check for presence of grade value as non-zero,but 0 can also be an update item so no check as of now
         if((gid != 0 && sid != 0 && aid != 0) && gradeBooksUIInp.getName() != null ) {
@@ -61,13 +64,13 @@ public class AssignmentResource {
                 response = Response.status(Response.Status.CREATED).location(locationURI).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                err.setError("Resource Not Found");
+                err.setErrorMessage("Resource Not Found");
                 response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            err.setError("Either an Id value is zero or Assignment Name is empty - Cant Create");
+            err.setErrorMessage("Either an Id value is zero or Assignment Name is empty - Cant Create");
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
@@ -82,6 +85,8 @@ public class AssignmentResource {
     public Response deleteAssignmentForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, @PathParam("aid") int aid,GradeBooksUIInp gradeBooksUIInp) {
         Response response = null;
         URI locationURI;
+        //ErrorObject err = new ErrorObject();
+        ErrMessage err = new ErrMessage();
         if(gid != 0 && sid != 0 && aid != 0) {
             int status = assignmentService.deleteAssignmentForStudentWithIdForGradeBook(gid, sid, aid);
             if(status == 1) {
@@ -91,14 +96,14 @@ public class AssignmentResource {
                 //response = Response.status(Response.Status.NO_CONTENT).build(); // OK + NOTHING TO RETURN
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                err.setError("Resource Not Found");
+                err.setErrorMessage("Resource Not Found");
                 response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         }
         else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            err.setError("Neither of the Id value can be zero - Cant Delete");
+            err.setErrorMessage("Neither of the Id value can be zero - Cant Delete");
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();   //
         }
@@ -114,6 +119,8 @@ public class AssignmentResource {
     public Response updateAssignmentForStudentWithIdForGradeBook(@PathParam("gid") int gid, @PathParam("sid") int sid, @PathParam("aid") int aid,GradeBooksUIInp gradeBooksUIInp) {
         Response response = null;
         URI locationURI;
+        //ErrorObject err = new ErrorObject();
+        ErrMessage err = new ErrMessage();
         String jsonString = null;
         //if(!(gradeBooksUIInp.getGrade()==null))
         // We can check for presence of grade value as non-zero,but 0 can also be an update item so no check as of now
@@ -131,13 +138,13 @@ public class AssignmentResource {
                 response = Response.status(Response.Status.OK).location(locationURI).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                err.setError("Resource Not Found");
+                err.setErrorMessage("Resource Not Found");
                 response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            err.setError("Neither of the Id value can be zero - Cant Update Grade");
+            err.setErrorMessage("Neither of the Id value can be zero - Cant Update Grade");
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
@@ -154,6 +161,8 @@ public class AssignmentResource {
         Response response = null;
         URI locationURI;
         String jsonString = null;
+        //ErrorObject err = new ErrorObject();
+        ErrMessage err = new ErrMessage();
         if(gid != 0 && sid != 0 && aid != 0) {
             // We can check for presence of grade item value as non-zero,but 0 can also be an update item so no check as of now 
             Assignment assignment = assignmentService.getAssignmentForStudentWithIdForGradeBook(gid, sid, aid);
@@ -170,13 +179,13 @@ public class AssignmentResource {
                 //response = Response.status(Response.Status.OK).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                err.setError("Resource Not Found");
+                err.setErrorMessage("Resource Not Found");
                 response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            err.setError("Neither of the Id value can be zero - Cant Read");
+            err.setErrorMessage("Neither of the Id value can be zero - Cant Read");
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }
@@ -193,6 +202,8 @@ public class AssignmentResource {
         Response response = null;
         URI locationURI;
         String jsonString = null;
+        //ErrorObject err = new ErrorObject();
+        ErrMessage err = new ErrMessage();
         if(gid != 0 && sid != 0) {
             // We can check for presence of grade item value as non-zero,but 0 can also be an update item so no check as of now 
             List<Assignment> assignments = assignmentService.getAllAssignmentForStudentWithIdForGradeBook(gid, sid);
@@ -209,13 +220,13 @@ public class AssignmentResource {
                 //response = Response.status(Response.Status.OK).entity(jsonString).build();
             } else {
                 locationURI = URI.create(context.getAbsolutePath().toString());
-                err.setError("Resource Not Found");
+                err.setErrorMessage("Resource Not Found");
                 response = Response.status(Response.Status.NOT_FOUND).location(locationURI).entity(err).build();  //NO_CONTENT aa??
                 //response = Response.status(Response.Status.NOT_FOUND).build();  //NO_CONTENT aa??
             }
         } else {
             locationURI = URI.create(context.getAbsolutePath().toString());
-            err.setError("Neither of the Id value can be zero - Cant Read");
+            err.setErrorMessage("Neither of the Id value can be zero - Cant Read");
             response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).entity(err).build();
             //response = Response.status(Response.Status.BAD_REQUEST).location(locationURI).build();
         }

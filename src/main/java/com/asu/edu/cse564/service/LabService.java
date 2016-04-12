@@ -31,7 +31,7 @@ public class LabService {
         System.out.println("Flag val:" + flag + "I val:" + i);
         if(flag == 1) {
             gradeBook = GradeBooks.gradeBooks.get(--i);
-            Student s = gradeBook.studentsMap.get(sid);
+            Student s = gradeBook.students.get(sid);
             if(s != null) {
                 Lab lab = new Lab(aid, name);
                 s.getLabs().add(lab);
@@ -63,7 +63,7 @@ public class LabService {
         System.out.println("Flag val:" + flag + "I val:" + i);
         if(flag == 1) {
             gradeBook = GradeBooks.gradeBooks.get(--i);
-            Student s = gradeBook.studentsMap.get(sid);
+            Student s = gradeBook.students.get(sid);
             if(s != null) {
                 sflag = 1;
                 if(sflag == 1) {
@@ -112,7 +112,7 @@ public class LabService {
         System.out.println("Flag val:" + flag + "I val:" + i);
         if(flag == 1) {
             gradeBook = GradeBooks.gradeBooks.get(--i);
-            Student s = gradeBook.studentsMap.get(sid);
+            Student s = gradeBook.students.get(sid);
             if(s != null) {
                 sflag = 1;
                 if(sflag == 1) {
@@ -162,7 +162,7 @@ public class LabService {
         System.out.println("Flag val:" + flag + "I val:" + i);
         if(flag == 1) {
             gradeBook = GradeBooks.gradeBooks.get(--i);
-            Student s = gradeBook.studentsMap.get(sid);
+            Student s = gradeBook.students.get(sid);
             if(s != null) {
                 sflag = 1;
                 if(sflag == 1) {
@@ -212,7 +212,7 @@ public class LabService {
         System.out.println("Flag val:" + flag + "I val:" + i);
         if(flag == 1) {
             gradeBook = GradeBooks.gradeBooks.get(--i);
-            Student s = gradeBook.studentsMap.get(sid);
+            Student s = gradeBook.students.get(sid);
             if(s != null) {
                 sflag = 1;
                 if(sflag == 1) {

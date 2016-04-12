@@ -1,11 +1,9 @@
 package com.asu.edu.cse564.service;
 
 import java.util.Iterator;
-import java.util.List;
 
 import com.asu.edu.cse564.model.GradeBook;
 import com.asu.edu.cse564.model.GradeBooks;
-import com.asu.edu.cse564.model.Lab;
 import com.asu.edu.cse564.model.MidTerm;
 import com.asu.edu.cse564.model.Student;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -112,7 +110,7 @@ public class MidTermService {
         System.out.println("Flag val:" + flag + "I val:" + i);
         if(flag == 1) {
             gradeBook = GradeBooks.gradeBooks.get(--i);
-            Student s = gradeBook.studentsMap.get(sid);
+            Student s = gradeBook.students.get(sid);
             if(s != null) {
                 sflag = 1;
                 if(sflag == 1) {
@@ -147,7 +145,7 @@ public class MidTermService {
         System.out.println("Flag val:" + flag + "I val:" + i);
         if(flag == 1) {
             gradeBook = GradeBooks.gradeBooks.get(--i);
-            Student s = gradeBook.studentsMap.get(sid);
+            Student s = gradeBook.students.get(sid);
             if(s != null) {
                 sflag = 1;
                 if(sflag == 1) {
