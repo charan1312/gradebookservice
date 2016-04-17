@@ -18,9 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import com.asu.edu.cse564.model.ErrMessage;
-import com.asu.edu.cse564.model.ErrorObject;
 import com.asu.edu.cse564.model.GradeBook;
-import com.asu.edu.cse564.model.GradeBooks;
 import com.asu.edu.cse564.model.GradeBooksUIInp;
 import com.asu.edu.cse564.service.GradeBooksService;
 import com.fasterxml.jackson.core.JsonProcessingException;

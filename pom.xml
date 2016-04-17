@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.asu.edu.cse564</groupId>
-	<artifactId>gradebookservice</artifactId>
+	<artifactId>CRUD-GradeBook-caware1-Eclipse</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gradebookservice</name>
+	<name>CRUD-GradeBook-caware1-Eclipse</name>
 
 	<build>
-		<finalName>gradebookservice</finalName>
+		<finalName>CRUD-GradeBook-caware1-Eclipse</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
